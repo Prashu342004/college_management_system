@@ -1,0 +1,99 @@
+from person import person
+from student import student
+from teacher import teacher
+students ,teachers = {},{}
+class admin(person):
+
+    def add_student(self):
+        person_id = int(input("enter person's id : "))
+        name = input("enter person's name : ")
+        age = int(input("enter person's age : "))
+        gender = input("enter person's gender : ")
+        roll_no = int(input("enter person's roll no : "))
+        course = input("enter person's course : ")
+        semester = int(input("enter person's semester : "))
+        attendance = int(input("enter person's attendance : "))
+        obj_name = roll_no
+
+        obj_name = student(person_id,name,age,gender,roll_no,course,semester,attendance)
+        students[person_id]= obj_name
+
+    def delete_student(self,person_id):
+        while True:
+            try:
+                input("Enter student's person id  :  ")
+                if person_id in students:
+                    del students[person_id]
+                    break
+                else:
+                    print("student not found")
+                    continue
+            except ValueError:
+                print("enter numeric value")
+            except Exception:
+                print("something went wrong, try again...")
+        
+
+    def add_teacher(self):
+        person_id = int(input("enter person's id : "))
+        name = input("enter person's name : ")
+        age = int(input("enter person's age : "))
+        gender = input("enter person's gender : ")
+        employee_id = int(input("enter person's employee id : "))
+        subject = input("enter person's subject : ")
+        obj_name = employee_id
+
+        obj_name = teacher(obj_name,person_id,name,age,gender,employee_id,subject)
+        teachers[person_id] = obj_name
+
+    def delete_teacher(self,person_id):
+        while True:
+            try:
+                input("Enter teacher's person id  :  ")
+                if person_id in teachers:
+                    del teachers[person_id]
+                    break
+                else:
+                    print("teacher not found")
+                    continue
+            except ValueError:
+                print("enter numeric value")
+            except Exception:
+                print("something went wrong, try again...")
+        
+    
+    def display(self,):
+        print("""
+              welcome admin:
+
+              choose option :
+
+              1. Add student
+              2. Delete student
+              3. Add teacher
+              4. Delete teacher
+              
+              """)
+        while True:
+            try:
+                choice = int(input(" :  "))
+                break
+            except ValueError:
+                print("enter numeric value ")
+        
+        if choice == 1:
+            self.add_student()
+        elif choice == 2:
+            self.delete_student()
+        elif choice == 3:
+            self.add_teacher()
+        elif choice == 4:
+            self.delete_teacher()
+        else:
+            print("please enter correct choice")
+            
+
+
+a = admin()
+
+admin.add_student()
