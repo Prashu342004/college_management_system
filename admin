@@ -62,7 +62,7 @@ class admin(person):
                 print("something went wrong, try again...")
         
     
-    def display(self,):
+    def display(self):
         print("""
               welcome admin:
 
@@ -94,6 +94,7 @@ class admin(person):
             
 
 
-a = admin()
+a = admin("admin","shubh",22,"male")
 
-admin.add_student()
+a.display()
+print(students)

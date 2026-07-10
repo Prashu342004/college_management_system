@@ -4,8 +4,8 @@ from person import person
 
 
 class student(person):
-    def __init__(self,roll_no,course,semester,attendance):
-        super().__init__()
+    def __init__(self,person_id,name,age,gender,roll_no,course,semester,attendance):
+        super().__init__(person_id,name,age,gender)
         self.roll_no = roll_no
         self.course = course
         self.semester = semester
@@ -24,4 +24,4 @@ class student(person):
         pass
     def pay_fee(self):
         pass
-   
+
