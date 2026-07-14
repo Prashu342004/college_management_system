@@ -12,6 +12,13 @@ class admin(person):
         person_id = str(input("enter person's id : "))
         name = input("enter person's name : ")
         age = int(input("enter person's age : "))
+        while True:
+            try:
+                mobile = student.num_validity(int(input("Enter mobile number : ")))
+                break
+            except Exception:
+                print("number not valid ")
+
         gender = input("enter person's gender : ")
         roll_no = input("enter person's roll no : ")
         course = input("enter person's course : ")
@@ -20,10 +27,9 @@ class admin(person):
         password = input("Enter student password : ")
         obj_name = person_id
 
-        obj_name = student(person_id,name,age,gender,roll_no,course,semester,attendance,password)
+        obj_name = student(person_id,name,mobile,age,gender,roll_no,course,semester,attendance,password)
 
         students.append(obj_name)
-        print(obj_name)
 
 
     def delete_student(self):
@@ -51,14 +57,20 @@ class admin(person):
         from log_database import teachers
         person_id = input("enter person's id : ")
         name = input("enter person's name : ")
+
+        try:
+            mobile = teacher.num_validity(int(input("Enter mobile number : ")))
+        except Exception:
+            print("number not valid ")
+
         age = int(input("enter person's age : "))
         gender = input("enter person's gender : ")
         employee_id = input("enter person's employee id : ")
         subject = input("enter person's subject : ")
         salary = int(input("Enter teacher's salary : "))
         password = input("Enter the password of teacher : ")
-        obj_name = employee_id
-        obj_name = teacher(person_id,name,age,gender,employee_id,subject,password)
+        obj_name = person_id
+        obj_name = teacher(person_id,name,mobile,age,gender,employee_id,subject,password)
         obj_name.salary = salary
         teachers.append(obj_name)
 
@@ -100,9 +112,6 @@ class admin(person):
                 print("No user found")
             break
 
-
-    def logout(self):
-        pass
 
     def display(self):
     

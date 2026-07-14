@@ -1,8 +1,12 @@
 import admin
+import student
+from teacher import teacher
 import log_database
 run_once = True
 a101 = admin.admin("a101","shubh")
 log_database.admin_user.append(a101)
+log_database.load_teachers()
+log_database.load_students()
 
 def role_selection():
     while True:
@@ -17,9 +21,9 @@ def role_selection():
         role_choice = int(input("Enter your choice : "))
 
         if role_choice == 1:
-            pass
+            student.student.login()
         elif role_choice == 2:
-            pass
+            teacher.login()
         elif role_choice == 3:
             admin.admin.login()
             break
@@ -59,3 +63,5 @@ if run_once == True:
     run_once = False
     main_menu()
 
+log_database.save_students()
+log_database.save_teachers()
