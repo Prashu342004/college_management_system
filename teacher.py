@@ -2,8 +2,8 @@ from person import person
 
 
 class teacher(person):
-    def __init__(self,employee_id,subject):
-        super().__init__()
+    def __init__(self,person_id,name,age,gender,employee_id,subject,password):
+        super().__init__(person_id,name,age,gender,password)
         self.employee_id = employee_id
         self.subject = subject
         self.__salary = None

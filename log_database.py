@@ -2,5 +2,5 @@ import admin
 
 students = []
 teachers = []
-admin_user = [{'a101': 'shubh'}]
+admin_user = []
 persons = []

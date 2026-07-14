@@ -3,9 +3,13 @@ from student import student
 from teacher import teacher
 
 class admin(person):
+    def __init__(self, person_id,password):
+        self.person_id = person_id
+        self.password = password
+
     def add_student(self):
         from log_database import students
-        person_id = input("enter person's id : ")
+        person_id = str(input("enter person's id : "))
         name = input("enter person's name : ")
         age = int(input("enter person's age : "))
         gender = input("enter person's gender : ")
@@ -13,59 +17,63 @@ class admin(person):
         course = input("enter person's course : ")
         semester = int(input("enter person's semester : "))
         attendance = int(input("enter person's attendance : "))
+        password = input("Enter student password : ")
+        obj_name = person_id
 
-        obj_name = roll_no
+        obj_name = student(person_id,name,age,gender,roll_no,course,semester,attendance,password)
 
-        obj_name = student(person_id,name,age,gender,roll_no,course,semester,attendance)
-
-        students.append({person_id:obj_name})
-        print(students)
-        self.display()
+        students.append(obj_name)
+        print(obj_name)
 
 
-    def delete_student(self,person_id):
+    def delete_student(self):
         from log_database import students
-        while True:
+        flag = True
+        while flag:
             try:
-                input("Enter student's person id  :  ")
-                if person_id in students:
-                    del student[person_id]
-                    break
+                person_id = input("Enter student's person id  :  ")
+                for i in students:
+                    if person_id == i.person_id:
+                        students.remove(i)
+                        print("student deleted")
+                        flag = False
+                        break
                 else:
                     print("student not found")
                     continue
-            except ValueError:
-                print("enter numeric value")
-            except Exception:
+            except Exception as e:
                 print("something went wrong, try again...")
+                print(f"The exact error is: {e}")
 
-        self.display()
         
 
     def add_teacher(self):
         from log_database import teachers
-        teacher_data = {}
         person_id = input("enter person's id : ")
         name = input("enter person's name : ")
         age = int(input("enter person's age : "))
         gender = input("enter person's gender : ")
         employee_id = input("enter person's employee id : ")
         subject = input("enter person's subject : ")
+        salary = int(input("Enter teacher's salary : "))
+        password = input("Enter the password of teacher : ")
         obj_name = employee_id
+        obj_name = teacher(person_id,name,age,gender,employee_id,subject,password)
+        obj_name.salary = salary
+        teachers.append(obj_name)
 
-        obj_name = teacher(obj_name,person_id,name,age,gender,employee_id,subject)
-        teacher_data[person_id] = obj_name
-        teachers.append(teacher_data)
-        self.display()
-
-    def delete_teacher(self,person_id):
+    def delete_teacher(self):
         from log_database import teachers
-        while True:
+        flag = True
+        while flag:
             try:
-                input("Enter teacher's person id  :  ")
-                if person_id in teachers:
-                    del teacher[person_id]
-                    break
+                person_id = input("Enter teacher's person id  :  ")
+                for i in teachers:
+                    if person_id == i.person_id:
+                        teachers.remove(i)
+                        print("Teacher deleted")
+                        flag = False
+                        break
                 else:
                     print("teacher not found")
                     continue
@@ -73,25 +81,34 @@ class admin(person):
                 print("enter numeric value")
             except Exception:
                 print("something went wrong, try again...")
-        self.display()
+    
 
-    def login(self):
+    # ----------------------------------used class method here --------------------------------
+
+    @classmethod  
+    def login(cls):
         from log_database import admin_user
         while True:
+            print("Please enter login details")
             username = input("enter username :  ")
             password = input("Enter password :  ")
             for i in admin_user:
-                if (username,password) in i.items():
-                    self.display()
-            print("No user found")
+                if i.person_id == username and i.password == password:
+                    i.display()
+                    break
+            else:
+                print("No user found")
+            break
 
 
     def logout(self):
-        import cms
-        cms.role_selection()
+        pass
 
     def display(self):
-        print("""
+    
+        while True:
+            try:
+                print("""
               welcome admin:
 
               choose option :
@@ -102,26 +119,25 @@ class admin(person):
               4. Delete teacher
               5. logout
               """)
-        while True:
-            try:
                 choice = int(input(" :  "))
+                if choice == 1:
+                    self.add_student()
+                    continue
+                elif choice == 2:
+                    self.delete_student()
+                    continue
+                elif choice == 3:
+                    self.add_teacher()
+                    continue
+                elif choice == 4:
+                    self.delete_teacher()
+                    continue
+                elif choice == 5:
+                    self.logout()
+                else:
+                    print("please enter correct choice")
                 break
             except ValueError:
                 print("enter numeric value ")
         
-        if choice == 1:
-            self.add_student()
-        elif choice == 2:
-            
-            self.delete_student()
-        elif choice == 3:
-            self.add_teacher()
-        elif choice == 4:
-            self.delete_teacher()
-        elif choice == 5:
-            self.logout()
-        else:
-            print("please enter correct choice")
-           
-
 

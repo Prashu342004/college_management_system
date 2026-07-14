@@ -1,4 +1,8 @@
 import admin
+import log_database
+run_once = True
+a101 = admin.admin("a101","shubh")
+log_database.admin_user.append(a101)
 
 def role_selection():
     while True:
@@ -10,15 +14,15 @@ def role_selection():
         print("4. Principal")
         print("5. Back")
         
-        role_choice = int(input("Enter your choice"))
+        role_choice = int(input("Enter your choice : "))
 
         if role_choice == 1:
             pass
         elif role_choice == 2:
             pass
         elif role_choice == 3:
-            a = admin.admin("a101","shubh",22,"male")
-            a.login()
+            admin.admin.login()
+            break
         elif role_choice == 4:
             pass
         elif role_choice == 5:
@@ -26,9 +30,11 @@ def role_selection():
         else:
             print("incorrect choice")
 
-
-while True:
-    print("""
+def main_menu():
+    flag_inner = True
+    while flag_inner:
+        try:
+            print("""
         
         Main Dashboard : College Management System
 
@@ -37,17 +43,19 @@ while True:
         1. login
         2. exit
         """)
-    while True:
-        try:
             choice = int(input("         : "))
-        except ValueError:
-            print("enter numeric value")
-        except Exception:
-            print("something went wrong")
-        else:
             if choice == 1:
                 role_selection()
             else:
-                break
-        
-    
+                flag_inner = False
+        except ValueError:
+            print("enter numeric value")
+        except Exception as e:
+            print("something went wrong")
+            print(f"The exact error is: {e}")
+
+
+if run_once == True:
+    run_once = False
+    main_menu()
+
