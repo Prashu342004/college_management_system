@@ -30,14 +30,6 @@ class student(person):
         else:
             print("No user found")
     
-    def search_student(self):
-        from log_database import students
-        no = input("enter student roll number : ")
-        for i in students:
-            if i.roll_no == no:
-                return i
-        else:
-            print("student not found")
 
     def display(self):
         super().display()

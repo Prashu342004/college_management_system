@@ -60,22 +60,31 @@ class teacher(person):
                 flag = False
             else:
                 print("enter valid input")
-
-
+    
+    def search_student(self):
+        from log_database import students
+        no = input("enter student roll number : ")
+        for i in students:
+            if i.roll_no == no:
+                return i
+        else:
+            print("student not found")
 
     def add_marks(self):
-        student_object = student.search_student()
+        student_object = self.search_student()
         marks = input("enter new marks")
         student_object.marks = {self.subject:marks}
 
 
     def update_marks(self):
-        student_object = student.search_student()
+        student_object = self.search_student()
         if self.subject in student_object.marks.keys():
             marks = print("enter updated marks")
             student_object.marks = self.subject,marks
         else:
             print("student marks is not added, please add first")
+    
+    
 
     def take_attendance(self):
         pass

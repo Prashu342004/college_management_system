@@ -22,8 +22,10 @@ def role_selection():
 
         if role_choice == 1:
             student.student.login()
+            break
         elif role_choice == 2:
             teacher.login()
+            break
         elif role_choice == 3:
             admin.admin.login()
             break

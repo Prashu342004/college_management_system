@@ -83,10 +83,10 @@ def load_teachers():
                 subject = data[6]
                 password = str(data[7])
                 salary = data[8]
-                obj_name = person_id
-                obj_name = teacher(person_id,name,mobile,age,gender,employee_id,subject,password)
-                obj_name.salary = salary
-                students.append(obj_name)
+                obj = person_id
+                obj = teacher(person_id,name,mobile,age,gender,employee_id,subject,password)
+                obj.salary = salary
+                teachers.append(obj)
     except FileNotFoundError:
         print("Data do not exist")
     except Exception as e:
