@@ -38,51 +38,84 @@ class teacher(person):
     def dashboard(self):
         flag = True
         while flag:
+            self.clear_display()
             print("option's available : ")
             print("1. view user details")
             print("2. add marks")
             print("3. update marks")
-            print("4. take attendance")
+            # print("4. take attendance")
             print("5. search student")
-            print("6. To go back")
+            print("6. view students")
+            print("7. logout")
             teacher_choice = input("enter your choice : ")
             if teacher_choice == "1":
                 self.display()
+                self.hold_screen()
             elif teacher_choice == "2":
                 self.add_marks()
+                self.hold_screen()
             elif teacher_choice == "3":
                 self.update_marks()
+                self.hold_screen()
             elif teacher_choice == "4":
-                pass
+                pass                            # Here code is not completed
             elif teacher_choice == "5":
-                self.search_student()
+                obj = self.search_student()
+                print(obj.display())
+                self.hold_screen()
             elif teacher_choice == "6":
+                self.clear_display()
+                self.view_student()
+            elif teacher_choice == "7":
+                self.logout()
                 flag = False
             else:
                 print("enter valid input")
     
     def search_student(self):
         from log_database import students
+        self.clear_display()
         no = input("enter student roll number : ")
         for i in students:
             if i.roll_no == no:
                 return i
         else:
             print("student not found")
+            return 0
 
     def add_marks(self):
+        from custom_exceptions import InvalidMarksError
+        self.clear_display()
         student_object = self.search_student()
-        marks = input("enter new marks")
+        while True:
+            try:
+                marks = input("enter new marks")
+                if marks < 1:
+                    raise InvalidMarksError
+                else:
+                    break
+            except InvalidMarksError as e:
+                print(f"error occur is : {e}")
         student_object.marks = {self.subject:marks}
 
 
     def update_marks(self):
+        from custom_exceptions import InvalidMarksError
+        self.clear_display()
         student_object = self.search_student()
         if self.subject in student_object.marks.keys():
-            marks = print("enter updated marks")
-            student_object.marks = self.subject,marks
+            while True:
+                try:
+                    marks = int(input("enter updated marks"))
+                    if marks < 1:
+                        raise InvalidMarksError
+                    else:
+                        break
+                except InvalidMarksError as e:
+                    print(f"error occur is : {e}")
+            student_object.marks = {self.subject:marks}
         else:
-            print("student marks is not added, please add first")
+            print("cannot update marks which does not exist")
     
     
 

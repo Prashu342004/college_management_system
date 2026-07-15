@@ -1,8 +1,8 @@
 from person import person
+from college_file import sports, cultural
 
-
-class student(person):
-    def __init__(self,person_id,name,mobile,age,gender,roll_no,course,semester,attendance,password):
+class student(person,sports,cultural):
+    def __init__(self,person_id,name,mobile,age,gender,roll_no,course,semester,attendance,password,fees_paid):
         super().__init__(person_id,name,mobile,age,gender,password)
         self.roll_no = roll_no
         self.course = course
@@ -10,6 +10,7 @@ class student(person):
         self.__marks = {}
         self.attendance = attendance
         self.password = password
+        self.fees_paid = fees_paid
     
     @property
     def marks(self):
@@ -40,33 +41,64 @@ class student(person):
     def dashboard(self):
         flag = True
         while flag:
+            self.clear_display()
             print("Enter choice")
             print("1. view profile")
             print("2. view result")
             print("3. calculate_percentage")
             print("4. pay_fee ")
-            print("5. back")
+            print("5. perform dance")
+            print("6. play sports")
+            print("7. logout")
             
-            student_choice = int(input("enter your choice : "))
-            if student_choice == 1:
+            student_choice = input("enter your choice : ")
+            if student_choice == "1":
                 self.display()
-            elif student_choice == 2:
-                pass
-            elif student_choice == 3:
-                pass
-            elif student_choice == 4:
-                pass
-            elif student_choice == 5:
+                self.hold_screen()
+            elif student_choice == "2":
+                self.clear_display()
+                self.view_result()
+                self.hold_screen()
+            elif student_choice == "3":
+                self.clear_display()
+                self.calculate_percentage()
+                self.hold_screen()
+            elif student_choice == "4":
+                self.clear_display()
+                self.pay_fee()
+                self.hold_screen()
+            elif student_choice == "5":
+                self.clear_display()
+                self.perform_dance()
+                self.hold_screen()
+            elif student_choice == "6":
+                self.clear_display()
+                self.play_sport()
+                self.hold_screen()
+            elif student_choice == "7":
                 self.logout()
                 break
             else:
                 print("invalid choice, Please retry....")
+                self.hold_screen()
 
 
     def view_result(self):
-        pass
+        print(f" {self.name}'s result :")
+        for subject , mark in self.marks.items():
+            print(f"subject = {subject}   marks = {mark}")
+
     def calculate_percentage(self):
-        pass
+        subject_count ,subject_total_marks = 0,0
+        for mark in self.marks.values():
+            subject_total_marks += int(mark)
+            subject_count +=1
+        print("percentage is : ",subject_total_marks/subject_count)
+
+
     def pay_fee(self):
-        pass
+        from college_file import college
+        self.college = college(self.fees_paid)
+        self.fees_paid =self.college.pay_fee()
+
 
